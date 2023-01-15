@@ -9,6 +9,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import Back.EncryptorAesGcmPasswordFile;
 
 
 public class App extends Application {
@@ -53,6 +54,18 @@ public class App extends Application {
 				buttonRun.setText("Run");
 				buttonRun.setTranslateY(50);
 				buttonRun.setMaxSize(50,20);
+				buttonRun.setOnAction(new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent actionEvent) {
+						EncryptorAesGcmPasswordFile EncryptorAesGcmPasswordFile = new EncryptorAesGcmPasswordFile();
+						try {
+							EncryptorAesGcmPasswordFile.cryptDecrypt();
+						} catch (Exception e) {
+							throw new RuntimeException(e);
+						}
+					}
+				});
 				secondaryLayout.getChildren().add(buttonRun);
 				// need to add the event
 				// and to print a performance

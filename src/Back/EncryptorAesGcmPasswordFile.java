@@ -110,7 +110,7 @@ public class EncryptorAesGcmPasswordFile {
 
     }
 
-    public static void main(String[] args) throws Exception {
+    public void cryptDecrypt() throws Exception {
 
         String password = "password123";
         String fromFile = "TestData.txt"; // from resources folder
