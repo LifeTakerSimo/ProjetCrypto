@@ -32,5 +32,6 @@ public class MessageAuthenticationCode {
 
         System.out.println("Mac result:");
         System.out.println(new String(macResult));
+
     }
 }
