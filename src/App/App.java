@@ -42,7 +42,6 @@ public class App extends Application {
 
 		button.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-
 				Text explain = new Text("You will be crypting the file TestData ");
 				explain.setFont(new Font(15));
 
@@ -71,6 +70,7 @@ public class App extends Application {
 					}
 				});
 				secondaryLayout.getChildren().add(buttonRun);
+
 				// New window
 				Stage newWindow = new Stage();
 				newWindow.setTitle("Chiffrage et Déchiffrage");
