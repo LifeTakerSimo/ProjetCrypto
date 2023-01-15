@@ -16,9 +16,7 @@ public class EncryptorAesGcmPasswordFile {
     private static final int TAG_LENGTH_BIT = 128; // must be one of {128, 120, 112, 104, 96}
     private static final int IV_LENGTH_BYTE = 12;
     private static final int SALT_LENGTH_BYTE = 16;
-
     private static final Charset UTF_8 = StandardCharsets.UTF_8;
-
     public static byte[] encrypt(byte[] pText, String password) throws Exception {
 
         // 16 bytes salt
@@ -79,24 +77,17 @@ public class EncryptorAesGcmPasswordFile {
     public static void encryptFile(String fromFile, String toFile, String password) throws Exception {
 
         // read a normal txt file
-
-
-        Path path1 = Paths.get(
-                "Data/TestData");
+        Path path1 = Paths.get("Data/TestData");
 
         // Converting the file into a byte array
         // using Files.readAllBytes() method
         byte[] fileContent = Files.readAllBytes(path1);
-
-
-
 
         // encrypt with a password
         byte[] encryptedText = EncryptorAesGcmPasswordFile.encrypt(fileContent, password);
 
         // save a file
         Path path = Paths.get(toFile);
-
         Files.write(path, encryptedText);
 
     }
@@ -105,7 +96,6 @@ public class EncryptorAesGcmPasswordFile {
 
         // read a file
         byte[] fileContent = Files.readAllBytes(Paths.get(fromEncryptedFile));
-
         return EncryptorAesGcmPasswordFile.decrypt(fileContent, password);
 
     }
@@ -121,8 +111,8 @@ public class EncryptorAesGcmPasswordFile {
         // decrypt file
         byte[] decryptedText = EncryptorAesGcmPasswordFile.decryptFile(toFile, password);
         String pText = new String(decryptedText, UTF_8);
+        System.out.println("Text after decrypting");
         System.out.println(pText);
-
     }
 
 }
