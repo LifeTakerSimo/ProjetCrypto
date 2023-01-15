@@ -1,5 +1,6 @@
 package App;
 
+import Back.EncryptorAesGcmPasswordFile;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,7 +10,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import Back.EncryptorAesGcmPasswordFile;
 
 
 public class App extends Application {
@@ -55,31 +55,30 @@ public class App extends Application {
 				buttonRun.setTranslateY(50);
 				buttonRun.setMaxSize(50,20);
 				buttonRun.setOnAction(new EventHandler<ActionEvent>() {
-
 					@Override
 					public void handle(ActionEvent actionEvent) {
 						EncryptorAesGcmPasswordFile EncryptorAesGcmPasswordFile = new EncryptorAesGcmPasswordFile();
 						try {
-							EncryptorAesGcmPasswordFile.cryptDecrypt();
+							long result[] = EncryptorAesGcmPasswordFile.cryptDecrypt();
+							Text perfEncryptor = new Text();
+							perfEncryptor.setText("Performance en Cryptage : " + String.valueOf(result[0]) + " kilobytes/ms" + "\n" + "Performance en Decryptage : " + String.valueOf(result[1]) + " kilobytes/ms");
+							perfEncryptor.setTranslateX(150);
+							perfEncryptor.setTranslateY(150);
+							secondaryLayout.getChildren().add(perfEncryptor);
 						} catch (Exception e) {
 							throw new RuntimeException(e);
 						}
 					}
 				});
 				secondaryLayout.getChildren().add(buttonRun);
-				// need to add the event
-				// and to print a performance
-
 				// New window
 				Stage newWindow = new Stage();
 				newWindow.setTitle("Chiffrage et Déchiffrage");
 				newWindow.setScene(secondScene);
 
-
 				// Set position of second window, related to primary window.
 				newWindow.setX(primaryStage.getX() + 300);
 				newWindow.setY(primaryStage.getY() + 300);
-
 				newWindow.show();
 			}
 		});
