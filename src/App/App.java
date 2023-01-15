@@ -83,7 +83,6 @@ public class App extends Application {
 				newWindow.show();
 			}
 		});
-
 		StackPane root = new StackPane();
 		root.getChildren().add(button);
 		root.getChildren().add(button1);
@@ -91,8 +90,8 @@ public class App extends Application {
 		root.getChildren().add(button3);
 		root.getChildren().add(button4);
 		root.getChildren().add(madeBy);
-		Scene scene = new Scene(root, 800, 900);
 
+		Scene scene = new Scene(root, 800, 900);
 		primaryStage.setTitle("Projet Cryptographie");
 		primaryStage.setScene(scene);
 		primaryStage.show();
