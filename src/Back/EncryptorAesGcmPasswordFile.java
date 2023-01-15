@@ -79,7 +79,7 @@ public class EncryptorAesGcmPasswordFile {
     public static void encryptFile(String fromFile, String toFile, String password) throws Exception {
 
         // read a normal txt file
-        Path path1 = Paths.get("Data/TestData");
+        Path path1 = Paths.get("Data/TestData.txt");
 
         // Converting the file into a byte array
         // using Files.readAllBytes() method
@@ -99,10 +99,9 @@ public class EncryptorAesGcmPasswordFile {
         // read a file
         byte[] fileContent = Files.readAllBytes(Paths.get(fromEncryptedFile));
         return EncryptorAesGcmPasswordFile.decrypt(fileContent, password);
-
     }
 
-    public void cryptDecrypt() throws Exception {
+    public long[] cryptDecrypt() throws Exception {
 
         String password = "password123";
         String fromFile = "TestData.txt"; // from resources folder
@@ -110,8 +109,8 @@ public class EncryptorAesGcmPasswordFile {
 
         //get the size of the file
         FileChannel fileChannel;
-        fileChannel = FileChannel.open(Path.of("Data/TestData"));
-        long fileSize = fileChannel.size();
+        fileChannel = FileChannel.open(Path.of("Data/TestData.txt"));
+        long fileSize = fileChannel.size()/1000;
         fileChannel.close();
 
         // encrypting the file
@@ -119,17 +118,20 @@ public class EncryptorAesGcmPasswordFile {
         EncryptorAesGcmPasswordFile.encryptFile(fromFile, toFile, password);
         long cryptTime = (System.nanoTime() - StartCryptTime)/1000000;
 
-        //Perforamance
-        double encryPerf = fileSize/cryptTime;
-        System.out.println(encryPerf + "bytes/ms");
-
-        // should do a bigger file and add precision
-
         // decrypt file
+        long StartDecryptTime = System.nanoTime();
         byte[] decryptedText = EncryptorAesGcmPasswordFile.decryptFile(toFile, password);
         String pText = new String(decryptedText, UTF_8);
-        System.out.println("Text after decrypting");
-        System.out.println(pText);
+        long decryptTime = (System.nanoTime() - StartCryptTime)/1000000;
+
+        //Perforamance
+        long encryPerf = fileSize/cryptTime;
+        //System.out.println(encryPerf + " kilobytes/ms");
+        long decryPerf = fileSize/decryptTime;
+        //System.out.println(decryPerf + " kilobytes/ms");
+        //System.out.println("Text after decrypting");
+        //System.out.println(pText);
+        return new long[] {encryPerf, decryPerf};
     }
 
 }
