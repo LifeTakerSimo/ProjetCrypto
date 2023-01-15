@@ -4,11 +4,13 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.GCMParameterSpec;
 import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 
 public class EncryptorAesGcmPasswordFile {
 
@@ -106,7 +108,22 @@ public class EncryptorAesGcmPasswordFile {
         String fromFile = "TestData.txt"; // from resources folder
         String toFile = "encrypted.txt";
 
+        //get the size of the file
+        FileChannel fileChannel;
+        fileChannel = FileChannel.open(Path.of("Data/TestData"));
+        long fileSize = fileChannel.size();
+        fileChannel.close();
+
+        // encrypting the file
+        long StartCryptTime = System.nanoTime();
         EncryptorAesGcmPasswordFile.encryptFile(fromFile, toFile, password);
+        long cryptTime = (System.nanoTime() - StartCryptTime)/1000000;
+
+        //Perforamance
+        double encryPerf = fileSize/cryptTime;
+        System.out.println(encryPerf + "bytes/ms");
+
+        // should do a bigger file and add precision
 
         // decrypt file
         byte[] decryptedText = EncryptorAesGcmPasswordFile.decryptFile(toFile, password);
