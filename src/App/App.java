@@ -81,7 +81,6 @@ public class App extends Application {
 
 			}
 		});
-
 		Button Clean = new Button();
 		Clean.setText("Clean");
 		Clean.setTranslateX(200);
