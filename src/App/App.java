@@ -15,6 +15,10 @@ public class App extends Application {
 
 	private static double totalPerformance = 0;
 
+	/**
+	 * application
+	 * @param primaryStage
+	 */
 	public void start(final Stage primaryStage) {
 
 		Button button1 = new Button();

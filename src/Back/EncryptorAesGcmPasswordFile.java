@@ -19,6 +19,14 @@ public class EncryptorAesGcmPasswordFile {
     private static final int IV_LENGTH_BYTE = 12;
     private static final int SALT_LENGTH_BYTE = 16;
     private static final Charset UTF_8 = StandardCharsets.UTF_8;
+
+    /**
+     * Crypting using password for file and salt
+     * @param pText
+     * @param password
+     * @return encryption
+     * @throws Exception
+     */
     public static byte[] encrypt(byte[] pText, String password) throws Exception {
 
         // 16 bytes salt
@@ -48,6 +56,13 @@ public class EncryptorAesGcmPasswordFile {
 
     }
 
+    /**
+     * Decrypting
+     * @param cText
+     * @param password
+     * @return decrypted file
+     * @throws Exception
+     */
     // we need the same password, salt and iv to decrypt it
     private static byte[] decrypt(byte[] cText, String password) throws Exception {
 
@@ -76,6 +91,13 @@ public class EncryptorAesGcmPasswordFile {
 
     }
 
+    /**
+     * Encryption of the file
+     * @param fromFile
+     * @param toFile
+     * @param password
+     * @throws Exception
+     */
     public static void encryptFile(String fromFile, String toFile, String password) throws Exception {
 
         // read a normal txt file
@@ -94,6 +116,13 @@ public class EncryptorAesGcmPasswordFile {
 
     }
 
+    /**
+     * decrypt of the file
+     * @param fromEncryptedFile
+     * @param password
+     * @return crypted file
+     * @throws Exception
+     */
     public static byte[] decryptFile(String fromEncryptedFile, String password) throws Exception {
 
         // read a file
@@ -101,6 +130,11 @@ public class EncryptorAesGcmPasswordFile {
         return EncryptorAesGcmPasswordFile.decrypt(fileContent, password);
     }
 
+    /**
+     * main function to encrypt and decrypt the file with gcm password
+     * @return perf
+     * @throws Exception
+     */
     public double cryptDecrypt() throws Exception {
 
         String password = "password123";
@@ -129,11 +163,6 @@ public class EncryptorAesGcmPasswordFile {
         double decryPerf = fileSize/decryptTime;
         double perf = decryPerf + encryPerf;
 
-
-        //System.out.println(encryPerf + " kilobytes/ms");
-        //System.out.println(decryPerf + " kilobytes/ms");
-        //System.out.println("Text after decrypting");
-        //System.out.println(pText);
         return perf;
     }
 
