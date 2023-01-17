@@ -1,4 +1,4 @@
-package App;
+/*package App;
 
 import Back.EncryptorAesGcmPasswordFile;
 import javafx.application.Application;
@@ -102,3 +102,4 @@ public class App extends Application {
 
 }
 
+*/
