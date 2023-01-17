@@ -101,7 +101,7 @@ public class EncryptorAesGcmPasswordFile {
         return EncryptorAesGcmPasswordFile.decrypt(fileContent, password);
     }
 
-    public long[] cryptDecrypt() throws Exception {
+    public double cryptDecrypt() throws Exception {
 
         String password = "password123";
         String fromFile = "TestData.txt"; // from resources folder
@@ -125,13 +125,16 @@ public class EncryptorAesGcmPasswordFile {
         long decryptTime = (System.nanoTime() - StartCryptTime)/1000000;
 
         //Perforamance
-        long encryPerf = fileSize/cryptTime;
+        double encryPerf = fileSize/cryptTime;
+        double decryPerf = fileSize/decryptTime;
+        double perf = decryPerf + encryPerf;
+
+
         //System.out.println(encryPerf + " kilobytes/ms");
-        long decryPerf = fileSize/decryptTime;
         //System.out.println(decryPerf + " kilobytes/ms");
         //System.out.println("Text after decrypting");
         //System.out.println(pText);
-        return new long[] {encryPerf, decryPerf};
+        return perf;
     }
 
 }

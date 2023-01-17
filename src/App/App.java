@@ -7,7 +7,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -15,6 +14,10 @@ import javafx.stage.Stage;
 public class App extends Application {
 
 	public void start(final Stage primaryStage) {
+		Button buttonPerf = new Button();
+		buttonPerf.setTranslateX(0);
+		buttonPerf.setTranslateY(0);
+
 		Button button1 = new Button();
 		button1.setTranslateX(150);
 		button1.setTranslateY(150);
@@ -28,72 +31,49 @@ public class App extends Application {
 		button3.setTranslateY(150);
 
 		Button button4 = new Button();
-		button4.setTranslateX(20);
+		button4.setTranslateX(0);
 		button4.setTranslateY(300);
 
-		Button button = new Button();
-		button.setText("Chiffrage et Déchiffrage");
-		button.setTranslateX(-150);
-		button.setTranslateY(-150);
-		button.setMaxSize(150,50);
-		Text madeBy = new Text("Mohamed Kabbou");
-		madeBy.setTranslateX(-150);
-		madeBy.setTranslateY(-110);
+		Button buttonGCM = new Button();
+		buttonGCM.setText("Chiffrage et Déchiffrage" + "\n" + "\t" +"\t" + "GCM");
+		buttonGCM.setTranslateX(-150);
+		buttonGCM.setTranslateY(-150);
+		buttonGCM.setMaxSize(150,50);
 
-		button.setOnAction(new EventHandler<ActionEvent>() {
+		double totalPerformance = 0;
+
+		buttonGCM.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				Text explain = new Text("You will be crypting the file TestData ");
-				explain.setFont(new Font(15));
-
-				StackPane secondaryLayout = new StackPane();
-				secondaryLayout.getChildren().add(explain);
-				Scene secondScene = new Scene(secondaryLayout, 900, 700);
-
-				Button buttonRun = new Button();
-				buttonRun.setText("Run");
-				buttonRun.setTranslateY(50);
-				buttonRun.setMaxSize(50,20);
-				buttonRun.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent actionEvent) {
-						EncryptorAesGcmPasswordFile EncryptorAesGcmPasswordFile = new EncryptorAesGcmPasswordFile();
-						try {
-							long result[] = EncryptorAesGcmPasswordFile.cryptDecrypt();
-							Text perfEncryptor = new Text();
-							perfEncryptor.setText("Performance en Cryptage : " + String.valueOf(result[0]) + " kilobytes/ms" + "\n" + "Performance en Decryptage : " + String.valueOf(result[1]) + " kilobytes/ms");
-							perfEncryptor.setTranslateX(150);
-							perfEncryptor.setTranslateY(150);
-							secondaryLayout.getChildren().add(perfEncryptor);
-						} catch (Exception e) {
-							throw new RuntimeException(e);
-						}
-					}
-				});
-				secondaryLayout.getChildren().add(buttonRun);
-
-				// New window
-				Stage newWindow = new Stage();
-				newWindow.setTitle("Chiffrage et Déchiffrage");
-				newWindow.setScene(secondScene);
-
-				// Set position of second window, related to primary window.
-				newWindow.setX(primaryStage.getX() + 300);
-				newWindow.setY(primaryStage.getY() + 300);
-				newWindow.show();
+				EncryptorAesGcmPasswordFile EncryptorAesGcmPasswordFile = new EncryptorAesGcmPasswordFile();
+				try {
+					//totalPerformance += EncryptorAesGcmPasswordFile.cryptDecrypt();
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
 			}
-		});
+				});
 		StackPane root = new StackPane();
-		root.getChildren().add(button);
+		root.getChildren().add(buttonGCM);
 		root.getChildren().add(button1);
 		root.getChildren().add(button2);
 		root.getChildren().add(button3);
 		root.getChildren().add(button4);
-		root.getChildren().add(madeBy);
+		root.getChildren().add(buttonPerf);
+
+
+
+		buttonPerf.setText("Performance");
+		Text perfEncryptor = new Text();
+		perfEncryptor.setText("Performance en Cryptage : " + String.valueOf(totalPerformance) + " kilobytes/ms" + "\n" + "Performance en Decryptage : " +  " kilobytes/ms");
+		perfEncryptor.setTranslateX(150);
+		perfEncryptor.setTranslateY(150);
 
 		Scene scene = new Scene(root, 800, 900);
 		primaryStage.setTitle("Projet Cryptographie");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+
+		System.out.println(totalPerformance);
 	}
 
 	public static void main(String[] args) {
