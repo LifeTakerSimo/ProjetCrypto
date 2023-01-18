@@ -37,8 +37,6 @@ public class App extends Application {
 			public void handle(ActionEvent event) {
 				MessageAuthenticationCode MessageAuthenticationCode = new MessageAuthenticationCode();
 				try {
-					MessageAuthenticationCode.IsAuthentic("TestData.txt", "receivedMessage.txt");
-
 					double perfMAC = MessageAuthenticationCode.MacPerformance();
 					App.totalPerformance += perfMAC;
 					System.out.println(totalPerformance);
