@@ -3,7 +3,7 @@ Kabbou Mohamed :
     - Conception et Realisations de l'application ( JavaFx )
     - Calcule de la performance
     - Gestion GitHub
-    
+    - Javadoc
     
     
 Da Rocha Valentin : 
@@ -14,12 +14,13 @@ Da Rocha Valentin :
 
 Salhani Mohamed:
     -la création/vérification d'empreintes par les fonctions de hachage standards (MD5, SHA,...)
-
+    - Javadoc
 
 
 OUESLATI Mohamed Amine :
 
     - la création/vérification de la signature digitale d'un document ( à l'aide d'algorithmes tels que DSA )
         - Calcule de la performance
+        - Javadoc
         
    
