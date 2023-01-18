@@ -3,6 +3,7 @@ package App;
 import Back.EncryptorAesGcmPasswordFile;
 import Back.Hash;
 import Back.MessageAuthenticationCode;
+import Back.SignatureElec;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,9 +29,24 @@ public class App extends Application {
 	 */
 	public void start(final Stage primaryStage) {
 
-		Button button1 = new Button();
-		button1.setTranslateX(150);
-		button1.setTranslateY(150);
+		Button buttonDSA = new Button();
+		buttonDSA.setText("Signature electronique" + "\n" + "\t" +"\t" + "DSA");
+		buttonDSA.setTranslateX(150);
+		buttonDSA.setTranslateY(150);
+		buttonDSA.setMaxSize(160,50);
+
+		buttonDSA.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				SignatureElec DSA = new SignatureElec();
+				try {
+					double perfDSA = DSA.signVerify();
+					App.totalPerformance += perfDSA;
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+		});
+
 
 		Button buttonMAC = new Button();
 		buttonMAC.setText("Message authentication code" + "\n" + "\t" +"\t" + "MAC");
@@ -45,8 +61,6 @@ public class App extends Application {
 				try {
 					double perfMAC = MessageAuthenticationCode.MacPerformance();
 					App.totalPerformance += perfMAC;
-					System.out.println(totalPerformance);
-
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
@@ -98,7 +112,7 @@ public class App extends Application {
 
 		StackPane root = new StackPane();
 		root.getChildren().add(buttonGCM);
-		root.getChildren().add(button1);
+		root.getChildren().add(buttonDSA);
 		root.getChildren().add(buttonMAC);
 		root.getChildren().add(buttonHash);
 		root.getChildren().add(button4);
