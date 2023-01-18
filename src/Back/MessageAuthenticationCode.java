@@ -66,8 +66,8 @@ public class MessageAuthenticationCode {
          Key key = keyGenerator.generateKey(); //Creating/Generating a key
 
          //Getting the size of the file
-         FileChannel fileChannel;
-         fileChannel = FileChannel.open(Path.of("Data/TestData.txt"));
+
+         FileChannel fileChannel = FileChannel.open(Path.of("Data/TestData.txt"));
          long fileSize = fileChannel.size()/1000;
          fileChannel.close();
 
