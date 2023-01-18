@@ -1,6 +1,7 @@
 package App;
 
 import Back.EncryptorAesGcmPasswordFile;
+import Back.Hash;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,16 +30,19 @@ public class App extends Application {
 		button2.setTranslateX(150);
 		button2.setTranslateY(-150);
 
-		Button button3 = new Button();
-		button3.setTranslateX(-150);
-		button3.setTranslateY(150);
+		Button buttonHash = new Button();
+		buttonHash.setText("Hashage et verification" + "\n" + "\t" +"\t" + "SHA");
+		buttonHash.setTranslateX(-150);
+		buttonHash.setTranslateY(150);
+		buttonHash.setMaxSize(150,50);
+
 
 		Button button4 = new Button();
 		button4.setTranslateX(0);
-		button4.setTranslateY(300);
+		button4.setTranslateY(200);
 
 		Button buttonGCM = new Button();
-		buttonGCM.setText("Chiffrage et Déchiffrage" + "\n" + "\t" +"\t" + "GCM");
+		buttonGCM.setText("Chiffrage et Dechiffrage" + "\n" + "\t" +"\t" + "GCM");
 		buttonGCM.setTranslateX(-150);
 		buttonGCM.setTranslateY(-150);
 		buttonGCM.setMaxSize(150,50);
@@ -50,8 +54,18 @@ public class App extends Application {
 				try {
 					double perfGCM = EncryptorAesGcmPasswordFile.cryptDecrypt();
 					App.totalPerformance += perfGCM;
-					System.out.println(totalPerformance);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+		});
 
+		buttonHash.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				Hash hash = new Hash();
+				try {
+					totalPerformance += hash.hashVerify();
+					System.out.println(hash.hashVerify());
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
@@ -61,7 +75,7 @@ public class App extends Application {
 		root.getChildren().add(buttonGCM);
 		root.getChildren().add(button1);
 		root.getChildren().add(button2);
-		root.getChildren().add(button3);
+		root.getChildren().add(buttonHash);
 		root.getChildren().add(button4);
 
 		Button buttonPerf = new Button();
@@ -77,14 +91,14 @@ public class App extends Application {
 				perfValue.setText("Performance en Cryptage : " + Double.toString(totalPerformance) + " kilobytes/ms" );
 				root.getChildren().add(perfValue);
 				perfValue.setTranslateX(0);
-				perfValue.setTranslateY(400);
+				perfValue.setTranslateY(300);
 
 			}
 		});
 		Button Clean = new Button();
 		Clean.setText("Clean");
 		Clean.setTranslateX(200);
-		Clean.setTranslateY(400);
+		Clean.setTranslateY(300);
 		Clean.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				root.getChildren().remove(perfValue);
