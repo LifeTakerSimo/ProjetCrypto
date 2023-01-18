@@ -91,7 +91,7 @@ public class App extends Application {
 			}
 		});
 		root.getChildren().add(Clean);
-		Scene scene = new Scene(root, 800, 900);
+		Scene scene = new Scene(root, 600, 700);
 		primaryStage.setTitle("Projet Cryptographie");
 		primaryStage.setScene(scene);
 		primaryStage.show();
