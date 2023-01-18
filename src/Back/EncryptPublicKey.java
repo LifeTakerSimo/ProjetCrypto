@@ -14,7 +14,7 @@ public class EncryptPublicKey {
      *
      * RSA public key
      * @param keysize
-     * @return Secret key
+     * @return public key
      * @throws NoSuchAlgorithmException
      */
 
@@ -47,7 +47,7 @@ public class EncryptPublicKey {
     /**
      *
      * RSA private key
-     * @return public key
+     * @return private key
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
@@ -78,7 +78,7 @@ public class EncryptPublicKey {
 
 
     /**
-     * @return void
+     * @return double
      */
 
     public static double encryptDecrypt() throws NoSuchPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, InvalidKeySpecException {
