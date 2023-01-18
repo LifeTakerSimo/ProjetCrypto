@@ -1,4 +1,5 @@
-package Back;
+package crypto;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -79,7 +80,5 @@ public class ECSigner {
         return verifyFile(new File(fileName), publicKey, tagB64);
     }
 }
-
-
 
 
