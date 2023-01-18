@@ -2,6 +2,7 @@ package App;
 
 import Back.EncryptorAesGcmPasswordFile;
 import Back.Hash;
+import Back.MessageAuthenticationCode;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,16 +32,31 @@ public class App extends Application {
 		button1.setTranslateX(150);
 		button1.setTranslateY(150);
 
-		Button button2 = new Button();
-		button2.setTranslateX(150);
-		button2.setTranslateY(-150);
+		Button buttonMAC = new Button();
+		buttonMAC.setText("Message authentication code" + "\n" + "\t" +"\t" + "MAC");
+		buttonMAC.setTranslateX(150);
+		buttonMAC.setTranslateY(-150);
+
+		buttonMAC.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				MessageAuthenticationCode MessageAuthenticationCode = new MessageAuthenticationCode();
+				try {
+					double perfMAC = MessageAuthenticationCode.MacPerformance();
+					App.totalPerformance += perfMAC;
+					System.out.println(totalPerformance);
+
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+		});
+
 
 		Button buttonHash = new Button();
 		buttonHash.setText("Hashage et verification" + "\n" + "\t" +"\t" + "SHA");
 		buttonHash.setTranslateX(-150);
 		buttonHash.setTranslateY(150);
 		buttonHash.setMaxSize(150,50);
-
 
 		Button button4 = new Button();
 		button4.setTranslateX(0);
@@ -51,7 +67,6 @@ public class App extends Application {
 		buttonGCM.setTranslateX(-150);
 		buttonGCM.setTranslateY(-150);
 		buttonGCM.setMaxSize(150,50);
-
 
 		buttonGCM.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
