@@ -53,10 +53,10 @@ public class App extends Application {
 					KeyPair kp = eckp.getECKeyPair();
 					System.out.printf("private key :\n\t%s\n", kp.getPrivate().toString());
 					System.out.printf("public key :\n\t%s\n", kp.getPublic().toString());
-					String tag = ecs.signFile("crypto/ECSigner.java", kp.getPrivate());
+					String tag = ecs.signFile("Data/TestData.txt", kp.getPrivate());
 					System.out.printf("Tag signature : %s\n", tag);
 					System.out.printf(
-							"Verification : %B\n", ecs.verifyFile("crypto/ECSigner.java",kp.getPublic(),tag));
+							"Verification : %B\n", ecs.verifyFile("Data/TestData.txt",kp.getPublic(),tag));
 				} catch (IOException | GeneralSecurityException ex) {
 					Logger.getLogger(ECSignerTest.class.getName()).log(Level.SEVERE, null, ex);
 				}
