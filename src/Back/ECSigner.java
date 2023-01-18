@@ -17,8 +17,6 @@ import java.util.Enumeration;
 import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * A class to design documents with the DSA on elliptic curves
