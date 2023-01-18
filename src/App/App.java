@@ -1,6 +1,7 @@
 package App;
 
 import Back.EncryptorAesGcmPasswordFile;
+import Back.MessageAuthenticationCode;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,11 +26,30 @@ public class App extends Application {
 		button1.setTranslateX(150);
 		button1.setTranslateY(150);
 
+		////////////////////////////////////////////////////////////////////////////////////
+
 		Button buttonMAC = new Button();
 		buttonMAC.setText("Message authentication code" + "\n" + "\t" +"\t" + "MAC");
 		buttonMAC.setTranslateX(150);
 		buttonMAC.setTranslateY(-150);
 
+		buttonMAC.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				MessageAuthenticationCode MessageAuthenticationCode = new MessageAuthenticationCode();
+				try {
+					MessageAuthenticationCode.IsAuthentic("TestData.txt", "receivedMessage.txt");
+
+					double perfMAC = MessageAuthenticationCode.MacPerformance();
+					App.totalPerformance += perfMAC;
+					System.out.println(totalPerformance);
+
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+		});
+
+		/////////////////////////////////////////////////////////////////////////////////////
 		Button button3 = new Button();
 		button3.setTranslateX(-150);
 		button3.setTranslateY(150);
@@ -43,6 +63,7 @@ public class App extends Application {
 		buttonGCM.setTranslateX(-150);
 		buttonGCM.setTranslateY(-150);
 		buttonGCM.setMaxSize(150,50);
+
 
 
 		buttonGCM.setOnAction(new EventHandler<ActionEvent>() {
