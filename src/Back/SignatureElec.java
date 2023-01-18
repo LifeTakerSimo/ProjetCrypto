@@ -12,6 +12,15 @@ public class SignatureElec {
     private double signDebit;
     private double verifyDebit;
 
+          /**
+     * Generate the signature  of the file
+     * @param fileName name  of the file 
+     * @param privateKey private key to initialise the  signature
+     * @return sign in base64
+     * @throws Exception if the signature generation dosen't work
+     */
+    
+    
     public byte[] sign(String fileName, PrivateKey privateKey) throws Exception {
         Instant start = Instant.now();
         byte[] data = Files.readAllBytes(new File(fileName).toPath());
@@ -35,6 +44,15 @@ public class SignatureElec {
         return sign;
     }
 
+        /**
+     * Vérification of the file's signature
+     * @param fileName file to verify
+     * @param publicKey public key to initialse the verification
+     * @param signatureBytes the 64Base of signature to verify
+     * @return true if the signature is correcte else false 
+     * @throws Exception  if the verification doesn't work
+     */
+    
     public boolean verify(String fileName, PublicKey publicKey, byte[] signatureBytes) throws Exception {
         Instant start = Instant.now();
         start = start.truncatedTo(ChronoUnit.MILLIS);
@@ -61,6 +79,17 @@ public class SignatureElec {
         verifyDebit = (double) fileSize / time;
         return verify;
     }
+    
+    
+    
+        /**
+     * verify and sign the file 
+     * file name to verify/sign
+     * publicKey the public key to initialse the  verification 
+     * Base64 of the signature implemented to verify
+     * @return the performance of the signature and the verification  
+     * @throws Exception  verify if signature dosn't work
+     */
     public double signVerify() throws Exception {
 
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA");
