@@ -1,11 +1,30 @@
 Kabbou Mohamed :
     - le chiffrage/déchiffrage de documents à l'aide d'algorithmes à clés secrètes (algorithmes symétriques) : Algorithm : Galois/Counter Mode (GCM)
     - Conception et Realisations de l'application ( JavaFx )
-    - Calcule de la performance
+    - Calcul de la performance
     - Gestion GitHub
-    
+    - Javadoc
     
     
 Da Rocha Valentin : 
 
     -le chiffrage/déchiffrage de données à l'aide d'algorithmes à clés publiques (algorithmes asymétriques)
+
+
+
+Salhani Mohamed:
+    -la création/vérification d'empreintes par les fonctions de hachage standards (MD5, SHA,...)
+    - Javadoc
+
+
+OUESLATI Mohamed Amine :
+
+    - la création/vérification de la signature digitale d'un document ( à l'aide d'algorithmes tels que DSA )
+        - Calcul de la performance
+        - Javadoc
+        
+
+KINDE Dovi :
+    - Création/vérification de codes d'authentification de messages (MAC)
+    - Calcul de la performance
+    - Javadoc
