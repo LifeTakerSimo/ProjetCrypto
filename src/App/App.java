@@ -100,7 +100,6 @@ public class App extends Application {
 				root.getChildren().add(perfValue);
 				perfValue.setTranslateX(0);
 				perfValue.setTranslateY(300);
-
 			}
 		});
 
