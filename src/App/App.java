@@ -1,9 +1,6 @@
 package App;
 
-import Back.EncryptorAesGcmPasswordFile;
-import Back.Hash;
-import Back.MessageAuthenticationCode;
-import Back.SignatureElec;
+import Back.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -74,9 +71,25 @@ public class App extends Application {
 		buttonHash.setTranslateY(150);
 		buttonHash.setMaxSize(150,50);
 
-		Button button4 = new Button();
-		button4.setTranslateX(0);
-		button4.setTranslateY(200);
+		Button buttonAsym = new Button();
+		buttonAsym.setText("Chiffrage et déchiffrage"+"\n"+"\t"+"\t"+"Asymétrique");
+		buttonAsym.setTranslateX(0);
+		buttonAsym.setTranslateY(250);
+		buttonAsym.setMaxSize(150,50);
+
+		buttonAsym.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				EncryptPublicKey EncryptPublicKey = new EncryptPublicKey();
+				try {
+					double perfAsym = EncryptPublicKey.encryptDecrypt();
+					App.totalPerformance += perfAsym;
+					System.out.println(totalPerformance);
+
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+		});
 
 		Button buttonGCM = new Button();
 		buttonGCM.setText("Chiffrage et Dechiffrage" + "\n" + "\t" +"\t" + "GCM");
@@ -115,7 +128,7 @@ public class App extends Application {
 		root.getChildren().add(buttonDSA);
 		root.getChildren().add(buttonMAC);
 		root.getChildren().add(buttonHash);
-		root.getChildren().add(button4);
+		root.getChildren().add(buttonAsym);
 
 		Button buttonPerf = new Button();
 		buttonPerf.setTranslateX(0);
