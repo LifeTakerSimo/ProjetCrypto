@@ -11,10 +11,15 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.util.Formatter;
+
 
 public class App extends Application {
 
+	private static final String DBL_FMT = "##.####";
+
 	private static double totalPerformance = 0;
+
 
 	/**
 	 * application
@@ -64,13 +69,16 @@ public class App extends Application {
 			public void handle(ActionEvent event) {
 				Hash hash = new Hash();
 				try {
-					totalPerformance += hash.hashVerify();
-					System.out.println(hash.hashVerify());
+					double perfHash = hash.hashVerify();
+					totalPerformance += perfHash;
+					Formatter fm=new Formatter();
+					fm.format("%.4f", totalPerformance);
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
 			}
 		});
+
 		StackPane root = new StackPane();
 		root.getChildren().add(buttonGCM);
 		root.getChildren().add(button1);
@@ -95,6 +103,7 @@ public class App extends Application {
 
 			}
 		});
+
 		Button Clean = new Button();
 		Clean.setText("Clean");
 		Clean.setTranslateX(200);
@@ -109,6 +118,9 @@ public class App extends Application {
 		primaryStage.setTitle("Projet Cryptographie");
 		primaryStage.setScene(scene);
 		primaryStage.show();
+
+
+
 	}
 	public static void main(String[] args) {
 		launch(args);
