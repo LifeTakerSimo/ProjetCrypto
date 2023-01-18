@@ -10,25 +10,54 @@ import java.nio.file.Paths;
 import java.security.Key;
 import java.security.SecureRandom;
 
+/**
+ * This class implements a Message Authentication Code. The javax.crypto.Mac library is used to access MAC
+ * algorithms which are used to check the integrity of a received message.
+ *
+ * @author Dovi Kinde (dovi.kinde@uha.fr)
+ */
+
 public class MessageAuthenticationCode {
 
+    /**
+     * Process the message and provide the MAC for the message sent by the sender.
+     *
+     * @param key           The shared secret key
+     * @param message       The message sent
+     * @return              A MAC for the message
+     * @throws Exception    Exceptions
+     */
 
-    public static byte[] Mac(Key key, String file) throws Exception{
-        //Converting the file data into a byte array
-        Path path = Paths.get("Data/" + file);
+    public static byte[] Mac(Key key, String message) throws Exception {
+        //Converts the file data into a byte array
+        Path path = Paths.get("Data/" + message);
         byte[] data = Files.readAllBytes(path);
 
-        Mac senderMac = Mac.getInstance("HmacSHA256"); //Getting the provider implementation of the required algorithm
-        senderMac.init(key); //Initializing the algorithm with the key
+        //Sends the message to the received
+        Path path1 = Paths.get("Data/receivedMessage.txt");
+        Files.deleteIfExists(path1);
+        Files.write(path1, data);
+
+        Mac senderMac = Mac.getInstance("HmacSHA256"); //Get the provider implementation of the required algorithm
+        senderMac.init(key); //Initialize the algorithm with the key
 
         byte[] mac = senderMac.doFinal(data);
 
         return mac;
     }
 
-    public static byte[] CalculatedMac(Key key, String file) throws Exception {
+    /**
+     * Calculate the MAC for the message received by the receiver.
+     *
+     * @param key           The shared secret key
+     * @param message       The message received
+     * @return              The calculated MAC from the received message
+     * @throws Exception    Exceptions
+     */
+
+    public static byte[] CalculatedMac(Key key, String message) throws Exception {
         //Converting the file data into a byte array
-        Path path = Paths.get("Data/" + file);
+        Path path = Paths.get("Data/" + message);
         byte[] data = Files.readAllBytes(path);
 
         Mac receiverMac = Mac.getInstance("HmacSHA256");
@@ -36,16 +65,23 @@ public class MessageAuthenticationCode {
 
         byte[] calculatedMac = receiverMac.doFinal(data);
 
-        //Path path2 = Paths.get("Data/DoviVerification.txt");
-        //Files.write(path2, calculatedMac);
-
         return calculatedMac;
     }
 
-    public static boolean IsAuthentic(Key key, String file) throws Exception {
+    /**
+     * Check if the provided MAC and the calculated one are the same.
+     *
+     * @param key               The shared secret key
+     * @param sentMessage       The message sent
+     * @param receivedMessage   The message received
+     * @return
+     * @throws Exception Exceptions
+     */
 
-        byte [] mac = Mac(key, file);
-        byte [] calculatedMac = CalculatedMac(key, file);
+    public static boolean IsAuthentic(Key key, String sentMessage, String receivedMessage) throws Exception {
+
+        byte [] mac = Mac(key, sentMessage);
+        byte [] calculatedMac = CalculatedMac(key, receivedMessage);
 
         for (int i = 0; i < calculatedMac.length; i++) {
             if (calculatedMac[i] != mac[i]){
@@ -57,9 +93,16 @@ public class MessageAuthenticationCode {
         return true;
     }
 
-    public static long MacPerf() throws Exception {
+    /**
+     * Calculates the performance of the authentication.
+     *
+     * @return              The execution speed in kilobytes/ms
+     * @throws Exception    Exceptions
+     */
+    public static long MacPerformance() throws Exception{
 
-        String file = "TestData.txt";
+        String sentFile = "TestData.txt";
+        String receivedFile = "receivedFile.txt";
         KeyGenerator keyGenerator = KeyGenerator.getInstance("DES"); //Creating a KeyGenerator object
         SecureRandom secRandom = new SecureRandom(); //Creating a SecureRandom object
         keyGenerator.init(secRandom); //Initializing the KeyGenerator
@@ -73,7 +116,7 @@ public class MessageAuthenticationCode {
 
         // Authenticate the file
         long startAuthTime = System.nanoTime();
-        MessageAuthenticationCode.IsAuthentic(key, file);
+        MessageAuthenticationCode.IsAuthentic(key, sentFile, receivedFile);
         long authTime = (System.nanoTime() - startAuthTime)/1000000;
 
         //Performance
@@ -83,13 +126,14 @@ public class MessageAuthenticationCode {
         return authPerf;
     }
     public static void main(String[] args) throws Exception {
-        KeyGenerator keyGenerator = KeyGenerator.getInstance("DES"); //Creating a KeyGenerator object
-        SecureRandom secRandom = new SecureRandom(); //Creating a SecureRandom object
-        keyGenerator.init(secRandom); //Initializing the KeyGenerator
-        Key key = keyGenerator.generateKey(); //Creating/Generating a key
+        //Generates the key
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("DES"); //Creates a KeyGenerator object
+        SecureRandom secRandom = new SecureRandom(); //Creates a SecureRandom object
+        keyGenerator.init(secRandom); //Initializes the KeyGenerator
+        Key key = keyGenerator.generateKey(); //Generates a key
 
-        IsAuthentic(key, "TestData.txt");
+        IsAuthentic(key, "TestData.txt", "receivedMessage.txt");
 
-        MacPerf();
+        MacPerformance();
     }
 }
