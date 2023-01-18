@@ -25,9 +25,10 @@ public class App extends Application {
 		button1.setTranslateX(150);
 		button1.setTranslateY(150);
 
-		Button button2 = new Button();
-		button2.setTranslateX(150);
-		button2.setTranslateY(-150);
+		Button buttonMAC = new Button();
+		buttonMAC.setText("Message authentication code" + "\n" + "\t" +"\t" + "MAC");
+		buttonMAC.setTranslateX(150);
+		buttonMAC.setTranslateY(-150);
 
 		Button button3 = new Button();
 		button3.setTranslateX(-150);
@@ -60,7 +61,7 @@ public class App extends Application {
 		StackPane root = new StackPane();
 		root.getChildren().add(buttonGCM);
 		root.getChildren().add(button1);
-		root.getChildren().add(button2);
+		root.getChildren().add(buttonMAC);
 		root.getChildren().add(button3);
 		root.getChildren().add(button4);
 
