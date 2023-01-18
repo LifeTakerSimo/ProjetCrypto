@@ -12,7 +12,7 @@ public class SignatureElec {
     private double signDebit;
     private double verifyDebit;
 
-          /**
+    /**
      * Generate the signature  of the file
      * @param fileName name  of the file 
      * @param privateKey private key to initialise the  signature

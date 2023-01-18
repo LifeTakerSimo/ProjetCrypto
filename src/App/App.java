@@ -16,9 +16,7 @@ import java.util.Formatter;
 public class App extends Application {
 
 	private static final String DBL_FMT = "##.####";
-
 	private static double totalPerformance = 0;
-
 
 	/**
 	 * application
@@ -44,13 +42,11 @@ public class App extends Application {
 			}
 		});
 
-
 		Button buttonMAC = new Button();
 		buttonMAC.setText("Message authentication code" + "\n" + "\t" +"\t" + "MAC");
 		buttonMAC.setTranslateX(150);
 		buttonMAC.setTranslateY(-150);
 		buttonMAC.setMaxSize(160,50);
-
 
 		buttonMAC.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {

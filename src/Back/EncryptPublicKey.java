@@ -29,20 +29,13 @@ public class EncryptPublicKey {
         // Récupérer l'encodage (format X.509) de la clé publique
         byte[] ePubKey = kp.getPublic().getEncoded();
 
-
-
         // Obtenir une instance de KeyFactory spécialisée pour les clés RSA
         KeyFactory kf = KeyFactory.getInstance("RSA");
         // Reconstruire la clé publique depuis son encodage X.509: ePubKey
         RSAPublicKey pubKey1 =
                 (RSAPublicKey) kf.generatePublic(new X509EncodedKeySpec(ePubKey));
-
         return pubKey1;
-
-
     }
-
-
 
     /**
      *
@@ -70,12 +63,8 @@ public class EncryptPublicKey {
         // Reconstruire la clé privée depuis son encodage PKCS#8 : ePriKey
         RSAPrivateKey priKey1 =
                 (RSAPrivateKey)kf.generatePrivate(new PKCS8EncodedKeySpec(ePriKey));
-
         return priKey1;
-
-
     }
-
 
     /**
      * @return double
