@@ -102,7 +102,6 @@ public class App extends Application {
 				perfValue.setTranslateY(300);
 			}
 		});
-
 		Button Clean = new Button();
 		Clean.setText("Clean");
 		Clean.setTranslateX(200);
