@@ -89,12 +89,10 @@ public class MessageAuthenticationCode {
 
         for (int i = 0; i < calculatedMac.length; i++) {
             if (calculatedMac[i] != mac[i]){
-                System.out.println("Attention ! The message has been modified before arriving to you !");
                 return false;
             }
         }
 
-        System.out.println("The message is authentic !");
         return true;
     }
 

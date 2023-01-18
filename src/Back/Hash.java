@@ -8,6 +8,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 public class Hash {
 
@@ -16,6 +17,8 @@ public class Hash {
 
     public byte[] hashFile(Path file, String algorithm) throws IOException {
         Instant start = Instant.now();
+        start = start.truncatedTo(ChronoUnit.MILLIS);
+
         byte[] fileBytes = null;
         try {
             fileBytes = Files.readAllBytes(file);
@@ -31,6 +34,8 @@ public class Hash {
         md.update(fileBytes);
         byte[] digest = md.digest();
         Instant end = Instant.now();
+        end = end.truncatedTo(ChronoUnit.MILLIS);
+
         double time = Duration.between(start, end).toMillis();
         FileChannel fileChannel;
         fileChannel = FileChannel.open(Path.of("Data/TestData.txt"));
@@ -42,9 +47,12 @@ public class Hash {
 
     public boolean verifyHash(Path file, byte[] hash, String algorithm) throws IOException {
         Instant start = Instant.now();
+        start = start.truncatedTo(ChronoUnit.MILLIS);
         byte[] fileHash = hashFile(file, algorithm);
         boolean isEqual = MessageDigest.isEqual(fileHash, hash);
         Instant end = Instant.now();
+        end = end.truncatedTo(ChronoUnit.MILLIS);
+
         double time = Duration.between(start, end).toMillis();
         FileChannel fileChannel;
         fileChannel = FileChannel.open(Path.of("Data/TestData.txt"));

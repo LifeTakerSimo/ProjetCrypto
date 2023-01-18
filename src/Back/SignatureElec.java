@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.security.*;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 public class SignatureElec {
     private double signDebit;
@@ -36,6 +37,8 @@ public class SignatureElec {
 
     public boolean verify(String fileName, PublicKey publicKey, byte[] signatureBytes) throws Exception {
         Instant start = Instant.now();
+        start = start.truncatedTo(ChronoUnit.MILLIS);
+
         // Read the input file
         byte[] data = Files.readAllBytes(new File(fileName).toPath());
 
@@ -48,6 +51,8 @@ public class SignatureElec {
 
         boolean verify = signature.verify(signatureBytes);
         Instant end = Instant.now();
+        end = end.truncatedTo(ChronoUnit.MILLIS);
+
         double time = Duration.between(start, end).toMillis();
         FileChannel fileChannel;
         fileChannel = FileChannel.open(Path.of("Data/TestData.txt"));
