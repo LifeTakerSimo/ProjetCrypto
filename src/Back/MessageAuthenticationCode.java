@@ -71,14 +71,19 @@ public class MessageAuthenticationCode {
     /**
      * Check if the provided MAC and the calculated one are the same.
      *
-     * @param key               The shared secret key
      * @param sentMessage       The message sent
      * @param receivedMessage   The message received
      * @return
      * @throws Exception Exceptions
      */
 
-    public static boolean IsAuthentic(Key key, String sentMessage, String receivedMessage) throws Exception {
+    public static boolean IsAuthentic(String sentMessage, String receivedMessage) throws Exception {
+
+        //Generates the key
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("DES"); //Creates a KeyGenerator object
+        SecureRandom secRandom = new SecureRandom(); //Creates a SecureRandom object
+        keyGenerator.init(secRandom); //Initializes the KeyGenerator
+        Key key = keyGenerator.generateKey(); //Generates a key
 
         byte [] mac = Mac(key, sentMessage);
         byte [] calculatedMac = CalculatedMac(key, receivedMessage);
@@ -89,6 +94,7 @@ public class MessageAuthenticationCode {
                 return false;
             }
         }
+
         System.out.println("The message is authentic !");
         return true;
     }
@@ -116,7 +122,7 @@ public class MessageAuthenticationCode {
 
         // Authenticate the file
         long startAuthTime = System.nanoTime();
-        MessageAuthenticationCode.IsAuthentic(key, sentFile, receivedFile);
+        MessageAuthenticationCode.IsAuthentic(sentFile, receivedFile);
         long authTime = (System.nanoTime() - startAuthTime)/1000000;
 
         //Performance
@@ -124,16 +130,5 @@ public class MessageAuthenticationCode {
         System.out.println(authPerf + " kilobytes/ms");
 
         return authPerf;
-    }
-    public static void main(String[] args) throws Exception {
-        //Generates the key
-        KeyGenerator keyGenerator = KeyGenerator.getInstance("DES"); //Creates a KeyGenerator object
-        SecureRandom secRandom = new SecureRandom(); //Creates a SecureRandom object
-        keyGenerator.init(secRandom); //Initializes the KeyGenerator
-        Key key = keyGenerator.generateKey(); //Generates a key
-
-        IsAuthentic(key, "TestData.txt", "receivedMessage.txt");
-
-        MacPerformance();
     }
 }
