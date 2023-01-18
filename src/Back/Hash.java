@@ -77,7 +77,11 @@ public class Hash {
         }
         return builder.toString();
     }
-
+    /**
+     * Hash class that contains two methods one that hashes the file
+     * and another one that verifies the hash during these operations
+     * a debit is calculated in Kilobytes per millisecond
+     */
     public double hashVerify() throws IOException {
         Path file = Path.of("Data/TestData.txt"); // file path
         String algorithm = "SHA-256";
