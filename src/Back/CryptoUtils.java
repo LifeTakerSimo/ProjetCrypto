@@ -13,8 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CryptoUtils {
+    /**
+     * hex representation
+     *
+     * @param bytes
+     * @return string
+     */
 
-    // hex representation
     public static String hex(byte[] bytes) {
         StringBuilder result = new StringBuilder();
         for (byte b : bytes) {
@@ -23,40 +28,64 @@ public class CryptoUtils {
         return result.toString();
     }
 
-    // print hex with block size split
+    /**
+     *
+     * print hex with block size split
+     * @param bytes
+     * @param blockSize
+     * @return hex
+     */
+
     public static String hexWithBlockSize(byte[] bytes, int blockSize) {
 
         String hex = hex(bytes);
 
         // one hex = 2 chars
         blockSize = blockSize * 2;
-
-        // better idea how to print this?
         List<String> result = new ArrayList<>();
         int index = 0;
         while (index < hex.length()) {
             result.add(hex.substring(index, Math.min(index + blockSize, hex.length())));
             index += blockSize;
         }
-
         return result.toString();
-
     }
 
+    /**
+     *
+     * @param numBytes
+     * @return random nonce
+     */
     public static byte[] getRandomNonce(int numBytes) {
         byte[] nonce = new byte[numBytes];
         new SecureRandom().nextBytes(nonce);
         return nonce;
     }
 
-    // AES secret key
+    /**
+     *
+     * AES secret key
+     * @param keysize
+     * @return Secret key
+     * @throws NoSuchAlgorithmException
+     */
+
     public static SecretKey getAESKey(int keysize) throws NoSuchAlgorithmException {
         KeyGenerator keyGen = KeyGenerator.getInstance("AES");
         keyGen.init(keysize, SecureRandom.getInstanceStrong());
         return keyGen.generateKey();
     }
 
-    // AES 256 bits secret key derived from a password
+    /**
+     *
+     * AES 256 bits secret key derived from a password
+     * @param password
+     * @param salt
+     * @return secret key 256 bits
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     */
+
     public static SecretKey getAESKeyFromPassword(char[] password, byte[] salt)
             throws NoSuchAlgorithmException, InvalidKeySpecException {
 
