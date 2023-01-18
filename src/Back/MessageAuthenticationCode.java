@@ -1,8 +1,7 @@
 package Back;
+
 import javax.crypto.KeyGenerator;
 import javax.crypto.Mac;
-import java.io.File;
-import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -108,7 +107,7 @@ public class MessageAuthenticationCode {
     public static long MacPerformance() throws Exception{
 
         String sentFile = "TestData.txt";
-        String receivedFile = "receivedFile.txt";
+        String receivedFile = "receivedMessage.txt";
         KeyGenerator keyGenerator = KeyGenerator.getInstance("DES"); //Creating a KeyGenerator object
         SecureRandom secRandom = new SecureRandom(); //Creating a SecureRandom object
         keyGenerator.init(secRandom); //Initializing the KeyGenerator
@@ -127,7 +126,6 @@ public class MessageAuthenticationCode {
 
         //Performance
         long authPerf = fileSize/authTime;
-        System.out.println(authPerf + " kilobytes/ms");
 
         return authPerf;
     }
