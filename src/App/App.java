@@ -149,6 +149,7 @@ public class App extends Application {
 		Clean.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				root.getChildren().remove(perfValue);
+				totalPerformance = 0;
 			}
 		});
 		root.getChildren().add(Clean);
