@@ -60,7 +60,6 @@ public class App extends Application {
 			}
 		});
 
-
 		Button buttonHash = new Button();
 		buttonHash.setText("Hashage et verification" + "\n" + "\t" +"\t" + "SHA");
 		buttonHash.setTranslateX(-150);
@@ -157,8 +156,6 @@ public class App extends Application {
 		primaryStage.setTitle("Projet Cryptographie");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-
-
 
 	}
 	public static void main(String[] args) {
